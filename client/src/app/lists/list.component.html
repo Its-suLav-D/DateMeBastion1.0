@@ -1,0 +1,80 @@
+<!-- <div class="text-center">
+  <h2>{{predicate === 'liked' ? 'Member I like': 'Members who like Me'}}</h2>
+</div> -->
+
+<!-- <div class="surface-ground">
+  <button [(ngModel)]="predicate" (click)="loadLikes()">Members I Like</button>
+  <div class="grid">
+    <div class="col-12 md:col-6 xl:col-3 p-3" *ngFor="let member of members">
+      <app-member-item [memberFromList]="member!"></app-member-item>
+    </div>
+  </div>
+</div> -->
+<!-- <div class="surface-ground">
+  <p-tabView>
+    <p-tabPanel header="Members I Like" (click)="loadLikes()">
+      <div class="grid">
+        <div class="col-12 md:col-6 xl:col-3 p-3" *ngFor="let member of members">
+          <app-member-item [memberFromList]="member!"></app-member-item>
+        </div>
+      </div>
+      <!-- <div class="grid">
+        <div class="col-12 md:col-6 xl:col-3 p-3" *ngFor="let member of members">
+          <app-member-item [memberFromList]="member!"></app-member-item>
+        </div> -->
+<!-- </p-tabPanel>
+    <p-tabPanel header="Members Who Likes Me ">
+
+    </p-tabPanel>
+
+  </p-tabView>
+</div> -->
+
+
+
+
+<div class="text-center mt-3">
+  <h2>{{predicate === 'liked' ? 'Members I like' : 'Members who like me'}}</h2>
+</div>
+
+<!-- <div class="surface-ground">
+
+  <div class="grid">
+    <div class="col-12 md:col-6 xl:col-4 p-3" *ngFor="let member of members">
+      <div class="surface-card shadow-2 border-rounded p-4">
+        <img src="{{ member?.photoUrl }}" class="mb-3 w-full fill" />
+        <div class="flex flex-column align-items-start">
+          <span class="text-lg text-900 font-medium mb-1">{{
+                     member?.knownAs
+                   }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+<div class="surface-section px-4 py-8 md:px-6 lg:px-8">
+  <p-selectButton [options]="stateOptions" [(ngModel)]="predicate" optionLabel="label" optionValue="value"
+    (click)="loadLikes()"></p-selectButton>
+  <div class="grid">
+    <div class="col-12 md:col-6 lg:col-3 p-3" *ngFor="let member of members; let i= index">
+      <div class="relative overflow-hidden" (mouseenter)="visibleMember = i" (mouseleave)="visibleMember = null">
+        <img src={{member?.photoUrl}} class="w-full block" />
+        <div class="absolute top-0 left-0 h-full w-full border-round fadein animation-duration-300 select-none"
+          style="background-color: rgba(0,0,0,0.7)" *ngIf="visibleMember === i">
+          <div class="flex flex-column p-5 h-full">
+            <span class="block font-medium text-white text-xl mb-3">{{member?.knownAs}}</span>
+            <span class="font-medium text-400">{{member?.city}}</span>
+            <div class="mt-auto">
+              <a tabindex="0" class="cursor-pointer text-white"><i class="pi pi-twitter text-600 text-xl mr-3"></i></a>
+              <a tabindex="0" class="cursor-pointer text-white"><i class="pi pi-github text-600 text-xl mr-3"></i></a>
+              <a tabindex="0" class="cursor-pointer text-white"><i class="pi pi-facebook text-600 text-xl"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,150 @@
+<div class="grid mt-4">
+  <div class="col-4">
+    <div class="surface-card p-4 shadow-2 border-round member-detail">
+      <img src="{{member?.photoUrl}}" class="mb-4 w-full member-detail-fill" />
+      <ul class="list-none p-0 m-0 border-top-1 surface-border">
+        <li class="flex align-items-center py-3 px-2 flex-wrap surface-ground">
+          <div class="text-500 w-full md:w-2 font-medium">Name</div>
+          <div class="text-900 w-full md:w-10">{{member?.knownAs}}</div>
+        </li>
+        <li class="flex align-items-center py-3 px-2 flex-wrap">
+          <div class="text-500 w-full md:w-2 font-medium">Location</div>
+          <div class="text-900 w-full md:w-10">{{member?.city}}, {{member?.country}}</div>
+        </li>
+
+        <li class="flex align-items-center py-3 px-2 flex-wrap surface-ground">
+          <div class="text-500 w-full md:w-2 font-medium">Member Since</div>
+          <div class="text-900 w-full md:w-10">{{member?.created | date}}</div>
+        </li>
+
+        <li class="flex align-items-center py-3 px-2 flex-wrap">
+          <div class="text-500 w-full md:w-2 font-medium">Last Active: </div>
+          <div class="text-900 w-full md:w-10 line-height-3">{{member?.lastActive | timeago}}</div>
+        </li>
+
+        <li class="flex align-items-center py-3 px-2 flex-wrap surface-ground">
+          <div class="text-500 w-full md:w-2 font-medium">Gender</div>
+          <div class="text-900 w-full md:w-10">{{member?.gender}}</div>
+        </li>
+        <li class="flex align-items-center py-3 px-2 flex-wrap">
+          <div class=" w-full md:w-10">
+            <button [disabled]="!editForm.dirty" form="editForm" pButton pRipple type="button" label="Save Changes"
+              class="p-button-raised p-button-success" type="submit"></button>
+
+          </div>
+        </li>
+
+      </ul>
+    </div>
+
+  </div>
+  <div class="col-8">
+
+
+    <div *ngIf="editForm.dirty"
+      class="flex lg:align-items-start flex-column lg:flex-row p-4 bg-blue-100 border-round border-1 border-blue-300">
+      <div class="flex align-items-start">
+        <i class="pi pi-check-circle text-blue-900 text-2xl mr-3"></i>
+        <div class="mr-3 flex lg:align-items-start flex-column lg:flex-row">
+          <div class="text-blue-900 font-medium mr-0 lg:mr-2 mb-2 lg:mb-0 line-height-3">Information</div>
+          <p class="m-0 p-0 text-blue-700 line-height-3"> You are about to make changes any unsaved Changes will be Lost
+            😅😅</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="surface-card p-4 shadow-2 border-round mt-4">
+      <p-tabView>
+        <p-tabPanel header="About {{member?.knownAs}}">
+          <form #editForm="ngForm" id="editForm" (ngSubmit)="updateMember()">
+            <div class="grid formgrid p-fluid">
+
+              <div class="field mb-4 col-12">
+                <label for="bio" class="font-medium text-900">Introduction:</label>
+                <textarea id="bio" type="text" rows="5" class="inputfield w-full" [(ngModel)]="member.introduction"
+                  name="introduction"></textarea>
+              </div>
+
+              <div class="field mb-4 col-12">
+                <label for="bio" class="font-medium text-900">Looking For:</label>
+                <textarea id="bio" type="text" rows="5" class="inputfield w-full" [(ngModel)]="member.lookingFor"
+                  name="lookingFor"></textarea>
+              </div>
+
+              <div class="field mb-4 col-12">
+                <label for="bio" class="font-medium text-900">Interests:</label>
+                <textarea id="bio" type="text" rows="5" class="inputfield w-full" [(ngModel)]="member.interests"
+                  name="interests"></textarea>
+              </div>
+
+              <div class="field mb-4 col-12 md:col-6">
+                <label for="city" class="font-medium text-900">City</label>
+                <input id="city" type="text" pInputText [(ngModel)]="member.city" name="city">
+              </div>
+              <div class="field mb-4 col-12 md:col-6">
+                <label for="state" class="font-medium text-900">Country</label>
+                <input id="state" type="text" pInputText [(ngModel)]="member.country" name="country">
+              </div>
+
+            </div>
+
+          </form>
+
+        </p-tabPanel>
+        <p-tabPanel header="Edit Photos">
+          <p>Update Photos Here</p>
+        </p-tabPanel>
+      </p-tabView>
+      <!-- 
+        <ul class="surface-card p-0 m-0 list-none flex overflow-x-auto select-none">
+          <li class="flex-1">
+            <a pRipple
+              class="cursor-pointer px-4 py-3 flex align-items-center justify-content-center border-bottom-2 hover:border-500 transition-colors transition-duration-150"
+              [ngClass]="{'border-blue-500 text-blue-500 hover:border-blue-500': active5 === 0, 'text-700 border-transparent': active5 !== 0}"
+              (click)="active5 = 0">
+              <i class="pi pi-home mr-2"></i>
+              <span class="font-medium">Overview</span>
+            </a>
+  
+          </li>
+          <li class="flex-1">
+            <a pRipple
+              class="cursor-pointer px-4 py-3 flex align-items-center justify-content-center border-bottom-2 hover:border-500 transition-colors transition-duration-150"
+              [ngClass]="{'border-blue-500 text-blue-500 hover:border-blue-500': active5 === 1, 'text-700 border-transparent': active5 !== 1}"
+              (click)="active5 = 1">
+              <i class="pi pi-users mr-2"></i>
+              <span class="font-medium">Members</span>
+            </a>
+          </li>
+          <li class="flex-1">
+            <a pRipple
+              class="cursor-pointer px-4 py-3 flex align-items-center justify-content-center border-bottom-2 hover:border-500 transition-colors transition-duration-150"
+              [ngClass]="{'border-blue-500 text-blue-500 hover:border-blue-500': active5 === 2, 'text-700 border-transparent': active5 !== 2}"
+              (click)="active5 = 2">
+              <i class="pi pi-shopping-cart mr-2"></i>
+              <span class="font-medium">Sales</span>
+            </a>
+          </li>
+          <li class="flex-1">
+            <a pRipple
+              class="cursor-pointer px-4 py-3 flex align-items-center justify-content-center border-bottom-2 hover:border-500 transition-colors transition-duration-150"
+              [ngClass]="{'border-blue-500 text-blue-500 hover:border-blue-500': active5 === 3, 'text-700 border-transparent': active5 !== 3}"
+              (click)="active5 = 3">
+              <i class="pi pi-user mr-2"></i>
+              <span class="font-medium">Profile</span>
+            </a>
+          </li>
+          <li class="flex-1">
+            <a pRipple
+              class="cursor-pointer px-4 py-3 flex align-items-center justify-content-center border-bottom-2 hover:border-500 transition-colors transition-duration-150"
+              [ngClass]="{'border-blue-500 text-blue-500 hover:border-blue-500': active5 === 4, 'text-700 border-transparent': active5 !== 4}"
+              (click)="active5 = 4">
+              <i class="pi pi-cog mr-2"></i>
+              <span class="font-medium">Settings</span>
+            </a>
+          </li>
+        </ul> -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,159 @@
+<div class="surface-overlay shadow-2 px-6 flex relative lg:static justify-content-between" style="min-height: 70px">
+  <img src="assets/logo/app-logo.svg" alt="Image" height="40" class="mr-0 lg:mr-6 align-self-center">
+
+  <a *ngIf="currentUserObservable$ | async" pRipple
+    class="cursor-pointer inline-flex align-items-center px-3 lg:hidden text-700" pStyleClass="@next"
+    enterClass="hidden" leaveToClass="hidden" [hideOnOutsideClick]="true">
+    <i class="pi pi-bars text-2xl"></i>
+  </a>
+  <div class="hidden lg:flex absolute lg:static w-full surface-overlay left-0 top-100 z-1 shadow-2 lg:shadow-none">
+    <ul class="flex list-none p-0 m-0 flex-column lg:flex-row">
+      <ng-container *ngIf="currentUserObservable$ | async">
+        <li class="h-full">
+          <a pRipple routerLink="/members" routerLinkActive="border-blue-500"
+            class="cursor-pointer h-full inline-flex align-items-center text-600 border-left-2 lg:border-left-none lg:border-bottom-2 border-transparent hover:border-500 transition-colors transition-duration-150 py-3 lg:py-0 px-3">
+            <span class="pi pi-users mr-2"></span>
+            <span class="font-medium">Members</span>
+          </a>
+        </li>
+        <li class="h-full">
+          <a pRipple routerLink="/messages" routerLinkActive="border-blue-500"
+            class="cursor-pointer h-full inline-flex align-items-center text-600 border-left-2 lg:border-left-none lg:border-bottom-2 border-transparent hover:border-500 transition-colors transition-duration-150 py-3 lg:py-0 px-3">
+            <span class="pi pi-calendar mr-2"></span>
+            <span class="font-medium">Messages</span>
+          </a>
+        </li>
+        <li class="h-full">
+          <a pRipple routerLink="/lists" routerLinkActive="border-blue-500"
+            class="cursor-pointer h-full inline-flex align-items-center text-600 border-left-2 lg:border-left-none lg:border-bottom-2 border-transparent hover:border-500 transition-colors transition-duration-150 py-3 lg:py-0 px-3">
+            <span class="pi pi-home mr-2"></span>
+            <span class="font-medium">Lists</span>
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+
+  <ng-container *ngIf="(currentUserObservable$ | async) as user">
+    <a pRipple class="cursor-pointer inline-flex align-items-center px-3 lg:hidden text-700" pStyleClass="@next"
+      enterClass="hidden" leaveToClass="hidden" [hideOnOutsideClick]="true">
+      <i class="pi pi-ellipsis-v text-xl"></i>
+    </a>
+    <div
+      class="hidden lg:flex lg:justify-content-end absolute lg:static w-full surface-overlay left-0 top-100 z-1 shadow-2 lg:shadow-none">
+      <ul class="flex list-none p-0 m-0 flex-column lg:flex-row">
+        <li class="h-full relative">
+          <a pRipple
+            class="cursor-pointer h-full inline-flex align-items-center text-600 py-3 lg:py-0 px-3 border-left-2 lg:border-left-none lg:border-bottom-2 border-transparent hover:border-500 transition-colors transition-duration-150"
+            pStyleClass="@next" enterClass="hidden" enterActiveClass="scalein" leaveToClass="hidden"
+            leaveActiveClass="fadeout" [hideOnOutsideClick]="true">
+            <!-- <img src="assets/images/blocks/avatars/circle/avatar-f-1.png" class="lg:mr-0"
+            style="width: 28px; height: 28px" /> -->
+            <p-avatar image="{{userMember?.photoUrl}}" styleClass="p-mr-2" size="large" shape="circle"></p-avatar>
+            <span class="mx-2 font-medium text-900">{{userMember?.knownAs}}</span>
+            <i class="pi pi-angle-down"></i>
+          </a>
+          <div
+            class="hidden static lg:absolute w-full surface-overlay left-0 top-100 z-1 shadow-none lg:shadow-2 origin-top border-round pl-3 lg:pl-0">
+            <ul class="list-none p-0 m-0">
+              <li>
+                <a pRipple
+                  class="cursor-pointer h-full inline-flex align-items-center text-600 border-left-2 border-transparent hover:border-500 transition-colors transition-duration-150 p-3">
+                  <span class="pi pi-user mr-2"></span>
+                  <span class="font-medium" routerLink="/member/edit">Profile</span>
+                </a>
+              </li>
+              <li>
+                <a pRipple
+                  class="cursor-pointer h-full inline-flex align-items-center text-600 border-left-2 border-transparent hover:border-500 transition-colors transition-duration-150 p-3">
+                  <span class="pi pi-cog mr-2"></span>
+                  <span class="font-medium">Settings</span>
+                </a>
+              </li>
+              <li>
+                <a pRipple
+                  class="cursor-pointer h-full inline-flex align-items-center text-600 border-left-2 border-transparent hover:border-500 transition-colors transition-duration-150 p-3">
+                  <span class="pi pi-sign-out mr-2"></span>
+                  <span class="font-medium" (click)="submitSignout()">Sign Out</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </ng-container>
+
+  <!-- Div Button -->
+  <div *ngIf="(currentUserObservable$ | async) === undefined"
+    class="flex list-none flex-column lg:flex-row border-top-1 lg:border-top-none py-3 lg:py-3 mt-3 lg:mt-0">
+    <button pButton pRipple label="Login" (click)="showResponsiveLogin()" class="p-button-text font-bold"></button>
+    <!-- <p-button
+    
+       icon="pi pi-external-link"
+       label="Show"
+     ></p-button> -->
+    <button pButton pRipple (click)="showResponsiveRegister()" label="Register"
+      class="ml-3 p-button-outlined font-bold"></button>
+  </div>
+</div>
+
+
+
+
+
+<p-dialog header="Login" [(visible)]="displayLoginModal" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '20vw' }"
+  [draggable]="false" [resizable]="false">
+  <div class="surface-card p-4 w-full lg:w-12">
+    <div class="text-center mb-5">
+      <img src="assets/images/blocks/logos/hyper.svg" alt="Image" height="50" class="mb-3" />
+      <div class="text-900 text-3xl font-medium mb-3">Welcome Back</div>
+      <span class="text-600 font-medium line-height-3">Don't have an account?</span>
+      <a class="font-medium no-underline ml-2 text-blue-500 cursor-pointer">Create today!</a>
+    </div>
+
+    <div>
+      <form #loginForm="ngForm" (ngSubmit)="submitLogin()" autocomplete="off">
+        <div class="p-fluid">
+          <div class="p-field">
+            <label for="Username">Username</label>
+            <input type="text" name="username" pInputText placeholder="Username" [(ngModel)]="loginModel.username" />
+          </div>
+          <div class="p-field">
+            <label for="password">Password</label>
+            <p-password [(ngModel)]="loginModel.password" [toggleMask]="true" name="loginPassword"></p-password>
+          </div>
+        </div>
+        <!-- <input id="password1" type="password" pInputText class="w-full mb-3" /> -->
+
+        <div class="flex align-items-center justify-content-between mb-6">
+          <div class="flex align-items-center">
+            <p-checkbox id="rememberme" styleClass="mr-2"></p-checkbox>
+            <label for="rememberme1">Remember me</label>
+          </div>
+          <a class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Forgot password?</a>
+        </div>
+
+        <button pButton pRipple label="Log In" icon="pi pi-user" class="w-full" type="submit"></button>
+      </form>
+    </div>
+  </div>
+</p-dialog>
+
+<!-- Register Modal  -->
+
+<p-dialog header="Register" [(visible)]="displayRegisterModal" [breakpoints]="{ '960px': '75vw' }"
+  [style]="{ width: '25vw' }" [draggable]="false" [resizable]="false">
+  <div class="surface-card p-4 w-full lg:w-12">
+    <div class="text-center mb-5">
+      <img src="assets/images/blocks/logos/hyper.svg" alt="Image" height="50" class="mb-3" />
+      <div class="text-900 text-3xl font-medium mb-3">Welcome Back</div>
+      <span class="text-600 font-medium line-height-3">Don't have an account?</span>
+      <a class="font-medium no-underline ml-2 text-blue-500 cursor-pointer">Create today!</a>
+    </div>
+
+    <div>
+      <app-register></app-register>
+    </div>
+  </div>
+</p-dialog>

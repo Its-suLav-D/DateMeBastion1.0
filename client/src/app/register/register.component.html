@@ -1,0 +1,98 @@
+<!-- <form [formGroup]="registerForm" (ngSubmit)="register()" autocomplete="off">
+  <h2 class="text-center text-primary">Sign up</h2>
+  <hr>
+  <div class="form-group">
+    <input type="text" class="form-control" formControlName="username" placeholder="Username">
+  </div>
+
+  <div class="form-group">
+    <input type="password" class="form-control" formControlName="password" placeholder="Password">
+  </div>
+
+  <div class="form-group">
+    <input type="password" class="form-control" formControlName="confirmPassword" placeholder="Confirm Password">
+  </div>
+
+  <div class="form-group text-center">
+    <button class="btn btn-success mr-2" type="submit">Register</button>
+    <button class="btn btn-default mr-2" (click)="cancel()" type="button">Cancel</button>
+  </div>
+</form> -->
+
+
+<form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && register()" autocomplete="off">
+
+  <div class="p-fluid">
+
+    <div class="p-field-radiobutton">
+      <!-- <label for="Gender">I am a: </label>
+      <p-radioButton value="Male"></p-radioButton> -->
+      <label>I am a : </label>
+      <p-radioButton value="male" inputId="male" formControlName="gender"></p-radioButton>
+      <label for="male">Male</label>
+      <p-radioButton value="female" inputId="female" formControlName="gender" class="mx-1"></p-radioButton>
+      <label for="female">Female</label>
+    </div>
+    <div class="p-field">
+      <label for="Username">Username</label>
+      <input type="text" id="Username" pInputText placeholder="Username" formControlName="username"
+        [class.ng-invalid]='registerForm.get("username")?.errors && registerForm.get("username")?.touched' />
+      <ng-container *ngIf='registerForm.get("username")?.errors && registerForm.get("username")?.touched'>
+        <p-message severity="error" text="Username is not Valid"></p-message>
+      </ng-container>
+    </div>
+
+    <div class="p-field">
+      <label for="dob">Date of Birth</label>
+      <p-inputMask mask="99/99/9999" formControlName="dateOfBirth" placeholder="99/99/9999" slotChar="mm/dd/yyyy">
+      </p-inputMask>
+    </div>
+
+    <div class="p-field">
+      <label for="knownAs">knownAs</label>
+      <input type="text" id="knownAs" pInputText placeholder="Lisa" formControlName="knownAs"
+        [class.ng-invalid]='registerForm.get("knownAs")?.errors && registerForm.get("knownAs")?.touched' />
+    </div>
+
+    <div class="p-field">
+      <label for="City">City</label>
+      <input type="text" id="City" pInputText placeholder="Rexburg" formControlName="city"
+        [class.ng-invalid]='registerForm.get("city")?.errors && registerForm.get("city")?.touched' />
+    </div>
+
+    <div class="p-field">
+      <label for="Country">Country</label>
+      <input type="text" id="Country" pInputText placeholder="USA" formControlName="country"
+        [class.ng-invalid]='registerForm.get("country")?.errors && registerForm.get("country")?.touched' />
+    </div>
+
+    <div class="p-field">
+      <label for="password">Password</label>
+      <p-password formControlName='password' id="password"
+        [class.ng-invalid]='registerForm.get("password")?.errors && registerForm.get("password")?.touched'
+        [toggleMask]="true">
+      </p-password>
+      <div *ngIf='registerForm.get("password")?.hasError("required")'>
+        <p-message severity="error" text="Please enter a password"></p-message>
+      </div>
+    </div>
+    <div class="p-field">
+      <label for="password">Password</label>
+      <p-password formControlName='confirmPassword' id="confirmPassword"
+        [class.ng-invalid]='registerForm.get("confirmPassword")?.errors && registerForm.get("confirmPassword")?.touched'>
+      </p-password>
+
+      <ng-container *ngIf='registerForm.get("confirmPassword")?.hasError("required")'>
+        <p-message severity="error" text="Please enter a confirm password"></p-message>
+      </ng-container>
+
+      <ng-container *ngIf='registerForm.get("confirmPassword")?.hasError("isMatching")'>
+        <p-message severity="error" text="Password Must Match"></p-message>
+      </ng-container>
+    </div>
+  </div>
+  <!-- <input id="password1" type="password" pInputText class="w-full mb-3" /> -->
+
+  <button pButton pRipple label="Sign In" icon="pi pi-user" class="w-full mt-2" type="submit"
+    [disabled]="!registerForm.valid"></button>
+</form>

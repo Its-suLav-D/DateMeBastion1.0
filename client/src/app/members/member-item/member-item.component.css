@@ -1,0 +1,7 @@
+.fill {
+  object-fit: cover;
+}
+
+.member-photo>img {
+  height: 400px;
+}

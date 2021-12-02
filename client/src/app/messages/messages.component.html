@@ -1,0 +1,70 @@
+<div class="surface-section px-4 py-8 md:px-6 lg:px-8 mt-5">
+  <p-selectButton
+    [options]="containerOptions"
+    [(ngModel)]="container"
+    optionLabel="label"
+    optionValue="value"
+    (click)="loadMessages()"
+  ></p-selectButton>
+
+  <div class="row" *ngIf="messages?.length === 0">
+    <h3>No messages</h3>
+  </div>
+
+  <ng-container *ngIf="messages != undefined">
+    <div *ngIf="messages.length > 0">
+      <p-table [value]="messages!">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Message</th>
+            <th>From/To</th>
+            <th>Sent/Received</th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-message>
+          <tr>
+            <td>
+              {{ message?.content }}
+            </td>
+            <td>
+              <div *ngIf="container === 'Outbox'">
+                <img
+                  alt="{{ message.recipientUsername }}"
+                  src="{{ message.recipientPhotoUrl }}"
+                  width="32"
+                  style="vertical-align: middle"
+                />
+                <strong>{{ message.recipientUserName | titlecase }}</strong>
+              </div>
+              <div *ngIf="container !== 'Outbox'">
+                <img
+                  alt="{{ message.senderUsername }}"
+                  src="{{ message.senderPhotoUrl }}"
+                  width="32"
+                  style="vertical-align: middle"
+                />
+                <strong> {{ message.senderUserName | titlecase }}</strong>
+              </div>
+            </td>
+            <td>
+              {{ message.messageSent | timeago }}
+              <!-- <img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle" />
+                            <span class="image-text">{{customer.representative.name}}</span> -->
+            </td>
+            <td>
+              <button
+                pButton
+                pRipple
+                type="button"
+                label="Delete"
+                class="p-button-raised p-button-danger"
+              ></button>
+              <!-- <span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span> -->
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </ng-container>
+</div>

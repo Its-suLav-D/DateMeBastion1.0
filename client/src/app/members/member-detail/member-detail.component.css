@@ -1,0 +1,8 @@
+.member-detail>img {
+  height: 500px;
+  max-width: 100%;
+}
+
+.member-detail-fill {
+  object-fit: cover;
+}
