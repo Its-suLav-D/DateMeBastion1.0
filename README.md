@@ -1,4 +1,4 @@
-# Overview
+# Overview and Choose your own Adventure 
 
 This is a simple Dating Application intended to Connect People in my university. In order to test server on the computer you would need to change the directory to API and run the command ```dotnet watch run ```
 . Moreover, in order to see the web Application you would need to change the directory again to client and run the command ``` ng serve``` in your terminal. 
@@ -38,3 +38,17 @@ we like and Folks that like my profile.
 * Make the Chat Instantaneous  using Web Sockets like Signal R 
 * Add a feature to Comment on the user Photos and send them Friend Request 
 * Add Admin Panel 
+
+
+# Choose your Own Adventure 
+
+## Overview
+
+
+### Video Demonstration
+
+[Part I](https://www.loom.com/share/0c572271598c442dae673f0981bb5b5c)
+[Part II ](https://www.loom.com/share/32b9ecc7b44749c39b9f59bbc3e53e0d)
+
+
+
