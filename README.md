@@ -40,15 +40,7 @@ we like and Folks that like my profile.
 * Add Admin Panel 
 
 
-# Choose your Own Adventure 
 
-## Overview
-
-
-### Video Demonstration
-
-[Part I](https://www.loom.com/share/0c572271598c442dae673f0981bb5b5c)
-[Part II ](https://www.loom.com/share/32b9ecc7b44749c39b9f59bbc3e53e0d)
 
 
 
